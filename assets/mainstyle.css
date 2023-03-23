@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap');
+.whole {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/static/images/28899766_7514773.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.reg-form {
+    width: 400px;
+    padding-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    border-radius: 30px;
+    font-size: 12px;
+    padding-left: 2%;
+}
+
+.reg-form h2 {
+    text-align: center;
+}
+
+.select-whole {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/static/images/7119306_3339154.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.selection-form {
+    width: 500px;
+    height: 450px;
+    padding-top: 2%;
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    font-size: 12px;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.selection-form h2 {
+    text-align: center;
+}
+
+.login-form {
+    width: 400px;
+    height: 400px;
+    /* padding-top: 2%; */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    border-radius: 20px;
+    font-size: 12px;
+    padding-left: 2%;
+}
+
+.login-form h2 {
+    text-align: center;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-family: 'Quicksand', sans-serif;
+    color: #333;
+}
+
+.nav-link {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: teal;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.card-body {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cards-outline {
+    margin-top: 5%;
+}
+
+@media screen and (max-width:768px) {
+    .selection-form {
+        height: 100vh;
+        width: auto;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fff;
+        border-radius: 20px;
+        font-size: 12px;
+        padding-left: 2%;
+    }
+    .select-whole {
+        width: 100vw;
+        height: 100vh;
+        background-image: url('/static/images/7119306_3339154.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
