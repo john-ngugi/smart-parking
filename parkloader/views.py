@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django_daraja.mpesa.core import MpesaClient
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
 
 
 
@@ -28,6 +29,38 @@ from django.contrib import messages
 #         form1 = MyForm()
 #         parking_lot_form=ParkingLotForm()
 #     return render(request, 'home.html', {'form': form1,'parking_lot_form':parking_lot_form,'detail': detail})
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+
+ 
+
+def login_user(request):
+    if request.method == 'POST': 
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            user_plan = Billing.objects.filter(user=user).first()
+            if user_plan:
+                return redirect("home")
+            else:
+                return redirect('billing_info2')
+        else:
+            form = AuthenticationForm()
+            return render(request, 'login.html', {'form': form, 'error_message': ""})
+    else:
+        form = AuthenticationForm()
+        return render(request, 'login.html', {'form': form, 'error_message': ""})
+
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
+
+# def my_login_view(request):
+#     return LoginView.as_view(template_name='login.html')(request)
+
+@login_required(login_url='/login/')
 def home(request):
     parking_lots = ParkingLot.objects.all()
     parking_lot_choices = [(parking_lot.id, f"{parking_lot.location} ({parking_lot.available_slots} available)") for parking_lot in parking_lots]
@@ -47,12 +80,18 @@ def home(request):
                 vehicle.save()
                 parking_lot.available_slots -= 1
                 parking_lot.save()
-                return redirect('/home')
+                vehicle_form.save()
+                messages.success(request, 'Your booking has been successfully submitted!')
+                return redirect(reverse('home') + '#book')
+                
             else:
                 # Display an error message if there are no available slots
                 vehicle_form.add_error('parking_lot', 'There are no available parking slots in this location.')
+        else:
+            messages.error(request, 'An error occurred while processing your booking request.')
     else:
         vehicle_form = MyForm(user=request.user)
+        
     return render(request, 'home.html', {'vehicle_form': vehicle_form, 'parking_lot_choices': parking_lot_choices})
 
 
@@ -62,14 +101,15 @@ def register(request):
         #form = registerForm()
         if form.is_valid(): 
             form.save()
+            loged=True
             form1 = AuthenticationForm(request, data=request.POST)
             user = form1.get_user()
             user_plan = Billing.objects.filter(user=user).first()
             if user_plan:
-                return redirect('/home')
+                return redirect('/login')
             else:
                 # User doesn't have a plan selected, redirect to the select plan page
-                return redirect("/home/billing_info/")    
+                return redirect("/login")    
         else:
             error_message = "Invalid username or password."
             return render(request, 'signUp.html', {'form': form, 'error_message': error_message})  
@@ -78,24 +118,6 @@ def register(request):
         return render(request, 'signUp.html', { 'form': form})
 
 
-def login_user(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            user_plan = Billing.objects.filter(user=user).first()
-            if user_plan:
-                return redirect('/home')
-            else:
-                # User doesn't have a plan selected, redirect to the select plan page
-                return redirect("home/billing_info/")
-        else:
-            error_message = "Invalid username or password."
-            return render(request, 'login.html', {'form': form, 'error_message': error_message})  
-    else:
-        form = AuthenticationForm()
-        return render(request, 'login.html', {'form': form, 'error_message': ""})
 
 
 def index(request):
@@ -136,17 +158,24 @@ def billing(request):
             if billing is None:
                 billing = form.save(commit=False)
                 billing.user = user
-            else:
                 billing.plan = form.cleaned_data['plan']
                 billing.card_number = form.cleaned_data['card_number']
                 billing.card_expiry = form.cleaned_data['card_expiry']
                 billing.cvv = form.cleaned_data['cvv']
-            billing.save()
-            messages.success(request, 'Billing details successfully updated!')
-            return redirect('/home')
+                billing.save()
+                messages.success(request, 'Billing details successfully updated!')
+                return redirect('home')   
+            else:
+                return redirect('home')
+        else:
+            messages.error(request, 'Billing plan not selected!')
+            return redirect('login')
+
     else:
         if billing is None:
             form = BillingForm()
+            context = {'plans': plans, 'form': form}
+            return render(request, 'billingplans.html', context)
         else:
             form = BillingForm(initial={
                 'plan': billing.plan,
@@ -154,24 +183,46 @@ def billing(request):
                 'card_expiry': billing.card_expiry,
                 'cvv': billing.cvv
             })
-        context = {'plans': plans, 'form': form}
-        return render(request, 'billingplans.html', context)
+            context = {'plans': plans, 'form': form}
+            return render(request, 'billingplans.html', context)
 
+# /////////////////////////////////////////////////////////////////////////////////
 
-@login_required
+# @login_required
+# def billing(request):
+#     plans = BillingPlan.objects.all()
+#     user = request.user
+#     try:
+#         billing = user.billing
+#     except Billing.DoesNotExist:
+#         billing = None
+
+#     if request.method == 'POST':
+#         form = BillingForm(request.POST)
+#         if form.is_valid():
+#             if billing is None:
+#                 billing = form.save(commit=False)
+#                 billing.user = user
+#             else:
+#                 billing.plan = form.cleaned_data['plan']
+#                 billing.save()
+#                 messages.success(request, 'Your billing plan has been successfully updated!')
+#                 return redirect('home')
+#         else: 
+#             return billing_info(request)   
+#     else:
+#         return billing_info(request)
+
 def plans(request):
     plans = BillingPlan.objects.all()
 
     if request.method == 'POST':
         form = BillingForm(request.POST)
-        if form.is_valid():
-            plan_id = form.cleaned_data['plan']
-            request.user.profile.billing_plan = BillingPlan.objects.get(id=plan_id)
-            request.user.profile.save()
-            messages.success(request, 'Billing plan successfully selected!')
-            return redirect('home/')
+        plan_id = form.cleaned_data['plan']
+        request.user.profile.billing_plan = BillingPlan.objects.get(id=plan_id)
+        request.user.profile.save()
+        messages.success(request, 'Billing plan successfully selected!')
+        return redirect('home/')
     else:
-        form = BillingForm()
-
-        context = {'plans': plans, 'form': form}
-        return render(request, 'plans/plans.html', context)
+        messages.error(request, 'Billing plan not selected!')
+        return redirect('login')
