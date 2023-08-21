@@ -15,91 +15,38 @@ body::-webkit-scrollbar-track {
     background-color: #f2f2f2;
 }
 
+.btm-txt,
+.reg-form-sign form {
+    margin-left: 35%;
+    font-size: medium;
+}
+
+.reg-form-sign h2 {
+    padding-left: 0;
+    margin-left: 40%;
+}
+
 .whole {
     width: 100vw;
     height: 100vh;
-    background-image: url('/static/images/28899766_7514773.jpg');
+    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6)), url('/static/images/28899766_7514773.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-
-/*
-.body {
-    background-color: #141E29;
-}
-
-.reg-form {
-    width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #fff;
-    border-radius: 30px;
-    font-size: 12px;
-    padding-left: 2%;
-}
-
-.navbar {
-    background-color: #232B35;
-}
-
-.nav-link {
-    font-size: 19px;
-    color: orange;
-}
-
-#book,
-#about {
-    background-image: linear-gradient(to right, #0A1A27, #141E29, #1B242D, #232B35);
-    color: #fff;
 }
 
 .title {
-    margin-top: 50vh;
-    margin-left: 70%;
+    margin-top: 350px;
+    margin-left: 78%;
 }
 
-.title h1 {
-    font-family: 'Montserrat', sans-serif;
+.display-4 {
     font-weight: bold;
+    text-transform: capitalize;
 }
 
-.title p {
-    font-family: 'Montserrat', sans-serif;
+.lead {
+    padding-right: 5%;
 }
-
-.btn-submit {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.about {
-    margin-bottom: 50px;
-    margin-top: 50px;
-}
-
-.about h2,
-.about p {
-    text-align: center;
-}
-
-.about p {
-    margin-bottom: 30px;
-}
-
-logo {
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-}
-
-
-/* body {
-    width: 100vw;
-    height: 100vh;
-    background-image: url('/static/images/park.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-} */
 
 .reg-form h2 {
     text-align: center;
@@ -146,24 +93,6 @@ logo {
     text-align: center;
 }
 
-
-/* .navbar-brand {
-    font-weight: bold;
-    font-size: 24px;
-    text-transform: uppercase;
-    font-family: 'Quicksand', sans-serif;
-    color: #333;
-} 
-
- .nav-link {
-    font-size: 18px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: teal;
-    font-family: 'Quicksand', sans-serif;
-}
-*/
-
 .card-body {
     height: 60vh;
     display: flex;
@@ -191,75 +120,6 @@ logo {
 .plan-div hr {
     align-self: center;
 }
-
-
-/* background-image: url('/static/images/pexels-rangga-aditya-armien-235222.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.text-over {
-    background-color: #fff;
-    height: 100vh;
-    width: 50%;
-    float: right;
-}
-
-.text-over h2 {
-    color: rgb(229, 70, 70);
-    font-size: 50px;
-    font-family: 'Quicksand', sans-serif;
-    float: right;
-    font-weight: bold;
-}
-
-header {
-    position: relative;
-    height: 100vh;
-}
-
-.carousel {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.slide {
-    position: absolute;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.slide.active {
-    opacity: 1;
-}
-
-.slide img {
-    width: 100%;
-}
-
-.caption {
-    position: absolute;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    width: 100%;
-    padding: 20px;
-}
-
-.caption h2 {
-    margin: 0;
-    font-size: 36px;
-}
-
-.caption p {
-    margin: 0;
-    font-size: 18px;
-} */
-
-
-/* Custom styles for the page */
 
 
 /* Center the intro content vertically */
@@ -325,6 +185,7 @@ header {
 
 footer {
     padding: 20px 0;
+    margin-top: 100px;
 }
 
 footer a {
@@ -438,5 +299,16 @@ footer a:hover {
     .about {
         margin-bottom: 30px;
         margin-top: 30px;
+    }
+    .btm-txt,
+    .reg-form-sign form {
+        margin-left: 10px;
+    }
+    .reg-form-sign h2 {
+        padding-left: 0;
+        margin-left: 0;
+    }
+    footer {
+        margin-top: 40px;
     }
 }
