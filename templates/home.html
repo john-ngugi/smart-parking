@@ -26,93 +26,8 @@
 
 <body style="overflow-y:scroll;overflow-x:hidden;">
 
-    <!-- <div class="select-whole">
-        <nav class="navbar navbar-expand-md  navbar-light bg-white sticky-top">
-            <div class="container-fluid">
-                <a class="navbar-brand text-secondary" href="#"> Smart Parking </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="billing_info">Billing</a>
-                        </li>
-                        <li class="nav-item last-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
-                        <li class="nav-item last-item">
-                            <a class="nav-link" href="{% url 'login' %}">logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        </nav>
-
-
-
-        <div class="selection-form shadow">
-            <h2>Book A Space</h2>
-            <form method="POST" class="form-group">
-                {% csrf_token %}
-                <!-- {% csrf_token %} {{ form|crispy }} {{ parking_lot_form|crispy }} -->
-    <!-- {{ vehicle_form| crispy}} -->
-    <!-- <div class="form-group">
-                    <label for="{{ vehicle_form.parking_lot.id_for_label }}">Select a parking location:</label> {{ vehicle_form.parking_lot }}
-                </div> -->
-    <!-- <button type="submit" class="btn btn-danger">Book</button>
-
-    <div class="container-fluid imgplace"></div>
-    </form>
-
-    </div>
-    <div class="jubotron hero">
-        <div class="text-over">
-            <p id="rest">smart parking</p>
-        </div>
-    </div>
-    </div>
-    <script>
-        var image = document.getElementById('rest')
-
-        document.addEventListener("DOMContentLoaded", () => {
-
-            function getQuote() {
-                async function updateQuote() {
-
-                    api_url = 'https://api.kanye.rest'
-                    const response = await fetch(
-                        api_url
-                    );
-
-                    const data = await response.json();
-                    image.textContent = data.quote
-                    console.log(data)
-
-                }
-                updateQuote()
-            }
-            getQuote()
-            setInterval(getQuote, 10000);
-        })
-        var slides = document.querySelectorAll('.slide');
-        var currentSlide = 0;
-        var slideInterval = setInterval(nextSlide, 5000);
-
-        function nextSlide() {
-            slides[currentSlide].className = 'slide';
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].className = 'slide active';
-        }
-    </script> -->
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top ">
+    <!-- create navigation bar  -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top " id="'navbarNav">
         <div class="container">
             <a class="navbar-brand logo" href="#"><span style="color: orange;"> SMART</span>PARK</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,19 +37,19 @@
                 <ul class="navbar-nav mx-auto">
                     <!-- Add mx-auto class here -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">HOME</a>
+                        <a class="nav-link" href="#target-anchor-about">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">ABOUT US</a>
+                        <a class="nav-link" href="#target-anchor-about">ABOUT US</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#book">BOOK </a>
+                        <a class="nav-link" href="#target-anchor-book">BOOK </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="home/billing_info">BILLING</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
+                        <a class="nav-link" href="{% url 'login' %}">LOGOUT</a>
                     </li>
                 </ul>
             </div>
@@ -144,22 +59,17 @@
         <div class="container">
             <div class="row justify-content-center">
 
-
-                <!-- <div class="row justify-content-center">
-                    <div class="col-md-6 order-md-2"> -->
-
-
                 <div class="col-md-6 order-md-2  title">
                     <h1 class="display-4">SmartPark System</h1>
                     <p class="lead">Smart Parking sensing technology is leading the way in delivery of proven, fully integrated , end-to-end solutions, resulting in a transformation of the complete parking experience</p>
-                    <a href="#book"> <button class="btn btn-md booking-btn btn-orange">  Book now </button></a>
+                    <a href="#target-anchor-book"> <button class="btn btn-md booking-btn btn-orange">  Book now </button></a>
                 </div>
             </div>
 
         </div>
     </section>
-
-    <section id="about" data-spy="scroll" data-target="#navbarNav" data-offset="50">
+    <a id="target-anchor-about"></a>
+    <section id="about" data-spy="scroll" data-target="#navbarNav" data-offset="60">
         <div class="container ">
             <div class="row">
                 <div class="col-md-12 about">
@@ -171,6 +81,7 @@
             </div>
         </div>
     </section>
+    <a id="target-anchor-book"></a>
     <section id="book">
         <div class="container">
             <div class="row">
@@ -234,6 +145,24 @@
                 element.scrollIntoView(); // scroll to the element
             }
         };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the height of your navigation bar
+            const navbarHeight = document.querySelector("nav").offsetHeight;
+
+            // Adjust scroll position when a link is clicked
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    const targetPosition = target.getBoundingClientRect().top + window.scrollY;
+                    window.scrollTo({
+                        top: targetPosition - navbarHeight, // Adjusted scroll position
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
     </script>
 </body>
 
