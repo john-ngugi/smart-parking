@@ -3,8 +3,11 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-
+#create tople for the vehicle drop downs 
 vehicle_type_choice = (('lorry','lorry'),('large vehicle','large vehicle') , ('pickup','pickup'),('personal car','personal car'))
+
+
+# create parking lot models which will be tables after sqlmigrate 
 
 class ParkingLot(models.Model):
     location = models.CharField(max_length=100)

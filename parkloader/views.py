@@ -9,27 +9,8 @@ from django_daraja.mpesa.core import MpesaClient
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
-
-
-
-# Create your views here.
-
-
-# def home(request):
-#     detail= parkingLoader.objects.last()
-#     if request.method == "POST":
-#         parking_lot_form = ParkingLotForm(request.POST)
-#         form1 = MyForm(request.POST)
-#         if form1.is_valid() and parking_lot_form.is_valid():
-#            parking_lot = parking_lot_form.save()
-#            vehicle = form1.save(commit=False)
-#            vehicle.parking_lot = parking_lot
-#            vehicle.save()
-#     else:
-#         form1 = MyForm()
-#         parking_lot_form=ParkingLotForm()
-#     return render(request, 'home.html', {'form': form1,'parking_lot_form':parking_lot_form,'detail': detail})
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 
 
@@ -53,12 +34,6 @@ def login_user(request):
         form = AuthenticationForm()
         return render(request, 'login.html', {'form': form, 'error_message': ""})
 
-
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
-
-# def my_login_view(request):
-#     return LoginView.as_view(template_name='login.html')(request)
 
 @login_required(login_url='/login/')
 def home(request):
@@ -133,7 +108,6 @@ def index(request):
 
 def stk_push_callback(request):
         data = request.body
-        
         return HttpResponse("STK Push in Django👋")
 
 
@@ -185,33 +159,6 @@ def billing(request):
             })
             context = {'plans': plans, 'form': form}
             return render(request, 'billingplans.html', context)
-
-# /////////////////////////////////////////////////////////////////////////////////
-
-# @login_required
-# def billing(request):
-#     plans = BillingPlan.objects.all()
-#     user = request.user
-#     try:
-#         billing = user.billing
-#     except Billing.DoesNotExist:
-#         billing = None
-
-#     if request.method == 'POST':
-#         form = BillingForm(request.POST)
-#         if form.is_valid():
-#             if billing is None:
-#                 billing = form.save(commit=False)
-#                 billing.user = user
-#             else:
-#                 billing.plan = form.cleaned_data['plan']
-#                 billing.save()
-#                 messages.success(request, 'Your billing plan has been successfully updated!')
-#                 return redirect('home')
-#         else: 
-#             return billing_info(request)   
-#     else:
-#         return billing_info(request)
 
 def plans(request):
     plans = BillingPlan.objects.all()
