@@ -77,8 +77,8 @@ TEMPLATES = [
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK="bootstrap5"
 
-WSGI_APPLICATION = 'smart_park.wsgi.application'
-
+# WSGI_APPLICATION = 'smart_park.wsgi.application'
+WSGI_APPLICATION = 'smart_park.wsgi.app'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
